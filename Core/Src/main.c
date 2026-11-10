@@ -230,6 +230,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    if (yaw_reset == 1){
+      reset_cumulative_angle();
+      yaw_reset = 0;
+    }
+    
     if (IMU_TakeSampleReady()) {
       loop_count++;
 
@@ -272,11 +277,6 @@ int main(void)
       //printf("%d %d\r\n",txdata1_u8[6], txdata1_u8[7]);
       //printf("%d\r\n",(int)last_value);
       //printf("%d\r\n",(int)yaw_reset);
-    }
-
-    if (yaw_reset == 1){
-      reset_cumulative_angle();
-      yaw_reset = 0;
     }
     /* USER CODE END WHILE */
 
