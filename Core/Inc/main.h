@@ -63,6 +63,8 @@ void Error_Handler(void);
 #define IMU2_CS_GPIO_Port GPIOB
 #define IMU1_CS_Pin GPIO_PIN_12
 #define IMU1_CS_GPIO_Port GPIOB
+#define Board_LED_Pin GPIO_PIN_2
+#define Board_LED_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 
