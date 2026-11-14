@@ -88,6 +88,10 @@ bool first_run = true;         // 初回判定用
 bool has_previous_imu_sample = false;
 //uint8_t txdata1_u8[8] = {0};
 FDCAN_TxHeaderTypeDef TxHeader;
+
+// for signal analysis
+//bool started;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -262,7 +266,7 @@ int main(void)
 
     if (imu_data_ready && !IMU_IsDmaBusy()){
       imu_data_ready = 0;
-      IMU_StartReadAllDMA(imu_raw);
+      bool started = IMU_StartReadAllDMA(imu_raw);
     }
 
     /* 以下実走時はすべてコメントアウトすること！ */
@@ -580,10 +584,31 @@ static void MX_GPIO_Init(void)
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DBG_CPU_GPIO_Port, DBG_CPU_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(DBG_DMA_GPIO_Port, DBG_DMA_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, IMU3_CS_Pin|IMU2_CS_Pin|IMU1_CS_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin : DBG_CPU_Pin */
+  GPIO_InitStruct.Pin = DBG_CPU_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(DBG_CPU_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : DBG_DMA_Pin */
+  GPIO_InitStruct.Pin = DBG_DMA_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(DBG_DMA_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : IMU3_CS_Pin IMU2_CS_Pin IMU1_CS_Pin */
   GPIO_InitStruct.Pin = IMU3_CS_Pin|IMU2_CS_Pin|IMU1_CS_Pin;
