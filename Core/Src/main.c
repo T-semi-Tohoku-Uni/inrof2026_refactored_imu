@@ -266,7 +266,9 @@ int main(void)
 
     if (imu_data_ready && !IMU_IsDmaBusy()){
       imu_data_ready = 0;
-      bool started = IMU_StartReadAllDMA(imu_raw);
+      DBG_CPU_ON();
+      IMU_StartReadAllDMA(imu_raw);
+      DBG_CPU_OFF();
     }
 
     /* 以下実走時はすべてコメントアウトすること！ */

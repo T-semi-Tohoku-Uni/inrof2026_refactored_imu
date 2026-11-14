@@ -162,6 +162,8 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
     if (hspi != &hspi2) {
         return;
     }
+    
+    DBG_CPU_ON();
 
     HAL_GPIO_WritePin(IMU_CS_PORTS[dma_imu_index], IMU_CS_PINS[dma_imu_index], GPIO_PIN_SET);
     unpack_imu_frame(&spi_rx[dma_imu_index][1], &dma_destination[dma_imu_index]);
@@ -176,6 +178,8 @@ void HAL_SPI_TxRxCpltCallback(SPI_HandleTypeDef *hspi)
         sample_ready = true;
         dma_destination = NULL;
     }
+
+    DBG_CPU_OFF();
 }
 
 void HAL_SPI_ErrorCallback(SPI_HandleTypeDef *hspi)
