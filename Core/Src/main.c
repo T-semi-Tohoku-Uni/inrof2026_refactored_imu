@@ -307,11 +307,10 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV1;
   RCC_OscInitStruct.PLL.PLLN = 10;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
@@ -598,6 +597,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, IMU3_CS_Pin|IMU2_CS_Pin|IMU1_CS_Pin, GPIO_PIN_SET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, DBG1_Pin|DBG2_Pin, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : DBG_CPU_Pin */
   GPIO_InitStruct.Pin = DBG_CPU_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -612,8 +614,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(DBG_DMA_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : IMU3_CS_Pin IMU2_CS_Pin IMU1_CS_Pin */
-  GPIO_InitStruct.Pin = IMU3_CS_Pin|IMU2_CS_Pin|IMU1_CS_Pin;
+  /*Configure GPIO pins : IMU3_CS_Pin IMU2_CS_Pin IMU1_CS_Pin DBG1_Pin
+                           DBG2_Pin */
+  GPIO_InitStruct.Pin = IMU3_CS_Pin|IMU2_CS_Pin|IMU1_CS_Pin|DBG1_Pin
+                          |DBG2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

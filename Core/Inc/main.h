@@ -67,6 +67,10 @@ void Error_Handler(void);
 #define IMU2_CS_GPIO_Port GPIOB
 #define IMU1_CS_Pin GPIO_PIN_12
 #define IMU1_CS_GPIO_Port GPIOB
+#define DBG1_Pin GPIO_PIN_8
+#define DBG1_GPIO_Port GPIOB
+#define DBG2_Pin GPIO_PIN_9
+#define DBG2_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
