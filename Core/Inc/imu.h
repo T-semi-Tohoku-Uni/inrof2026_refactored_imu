@@ -5,11 +5,11 @@
 #include <stdint.h>
 
 // for signal analysis
-#define DBG_CPU_ON()    (DBG_CPU_GPIO_Port->BSRR = DBG_CPU_Pin)
-#define DBG_CPU_OFF()   (DBG_CPU_GPIO_Port->BSRR = ((uint32_t)DBG_CPU_Pin << 16U))
+#define DBG_CPU_ON()    (DBG1_GPIO_Port->BSRR = DBG1_Pin)
+#define DBG_CPU_OFF()   (DBG1_GPIO_Port->BSRR = ((uint32_t)DBG1_Pin << 16U))
 
-#define DBG_DMA_ON()    (DBG_DMA_GPIO_Port->BSRR = DBG_DMA_Pin)
-#define DBG_DMA_OFF()   (DBG_DMA_GPIO_Port->BSRR = ((uint32_t)DBG_DMA_Pin << 16U))
+#define DBG_DMA_ON()    (DBG2_GPIO_Port->BSRR = DBG2_Pin)
+#define DBG_DMA_OFF()   (DBG2_GPIO_Port->BSRR = ((uint32_t)DBG2_Pin << 16U))
 
 /*構造体の定義*/
 typedef struct {
